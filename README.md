@@ -49,7 +49,7 @@ func main() {
 
 ### Get a list of positions
 
-1. By description
+**By description**
 
 Call `githubjobs.GetPositions()` with empty `location` parameter.
 
@@ -73,7 +73,7 @@ func main() {
 }
 ```
 
-2. By location
+**By location**
 
 Call `githubjobs.GetPositions()` with empty `description` parameter.
 
@@ -97,7 +97,7 @@ func main() {
 }
 ```
 
-3. By geographical coordinates
+**By geographical coordinates**
 
 Call `githubjobs.GetPositionsByCoordinates` with the coordinates (latitude and longitude) of location. It is important to note that the latitude and longitude values are in decimal degrees. You can use a service like [LatLong.net](http://www.latlong.net) for finding the coordinates of a location of your choice.
 
