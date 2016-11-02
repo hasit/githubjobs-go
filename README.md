@@ -117,7 +117,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-    // p now contains 
+    // p now contains all positions with 47.6062100° and -122.3320700° as their geographical coordinates.  
 	fmt.Println(p)
 }
 ```
