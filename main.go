@@ -46,15 +46,16 @@ func GetPositions(description, location string, fullTime bool) ([]Position, erro
 		v.Set("full_time", "true")
 	}
 
+	var p *[]Position
+
 	url := fmt.Sprintf("%v", endpoint+"/positions.json?"+v.Encode())
 
 	r, err := http.Get(url)
 	if err != nil {
-		return nil, Error{fmt.Sprintf("Could not create request: %s", err), -1}
+		return *p, Error{fmt.Sprintf("Could not create request: %s", err), -1}
 	}
 	defer r.Body.Close()
 
-	var p *[]Position
 	json.NewDecoder(r.Body).Decode(&p)
 
 	return *p, nil
@@ -68,13 +69,14 @@ func GetPositionsByCoordinates(latitude, longitude string) ([]Position, error) {
 
 	url := fmt.Sprintf("%v", endpoint+"/positions.json?"+v.Encode())
 
+	var p *[]Position
+
 	r, err := http.Get(url)
 	if err != nil {
-		return nil, Error{fmt.Sprintf("Could not create request: %s", err), -1}
+		return *p, Error{fmt.Sprintf("Could not create request: %s", err), -1}
 	}
 	defer r.Body.Close()
 
-	var p *[]Position
 	json.NewDecoder(r.Body).Decode(&p)
 
 	return *p, nil
@@ -84,13 +86,14 @@ func GetPositionsByCoordinates(latitude, longitude string) ([]Position, error) {
 func GetPositionByID(ID string) (Position, error) {
 	url := fmt.Sprintf("%v", endpoint+"/positions/"+ID+".json")
 
+	var p *Position
+
 	r, err := http.Get(url)
 	if err != nil {
-		return Position{}, Error{fmt.Sprintf("Could not create request: %s", err), -1}
+		return *p, Error{fmt.Sprintf("Could not create request: %s", err), -1}
 	}
 	defer r.Body.Close()
 
-	var p *Position
 	json.NewDecoder(r.Body).Decode(&p)
 
 	return *p, nil
