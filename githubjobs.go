@@ -4,11 +4,22 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"net/url"
+
+	"github.com/google/go-querystring/query"
 )
 
 // endpoint is the Github Jobs API endpoint to query.
 const endpoint = "https://jobs.github.com"
+
+type searchQueries struct {
+	Description string `url:"description"`
+	Location    string `url:"location"`
+	FullTime    bool   `url:"full_time"`
+}
+type cooridinateQueries struct {
+	Latitude  string `url:"lat"`
+	Longitude string `url:"long"`
+}
 
 // Position defines a position returned by Github Jobs.
 type Position struct {
@@ -38,13 +49,12 @@ func (e Error) Error() string {
 
 // GetPositions gets positions from Github Jobs by description and location.
 func GetPositions(description, location string, fullTime bool) ([]Position, error) {
-	v := url.Values{}
-	v.Set("description", description)
-	v.Set("location", location)
-	v.Set("full_time", "false")
-	if fullTime {
-		v.Set("full_time", "true")
+	sq := searchQueries{
+		Description: description,
+		Location:    location,
+		FullTime:    fullTime,
 	}
+	v, _ := query.Values(sq)
 
 	var p *[]Position
 
@@ -63,9 +73,11 @@ func GetPositions(description, location string, fullTime bool) ([]Position, erro
 
 // GetPositionsByCoordinates gets positions from Github Jobs by coordinates (latitude and longitude) in decimal degrees.
 func GetPositionsByCoordinates(latitude, longitude string) ([]Position, error) {
-	v := url.Values{}
-	v.Set("lat", latitude)
-	v.Set("long", longitude)
+	cq := cooridinateQueries{
+		Latitude:  latitude,
+		Longitude: longitude,
+	}
+	v, _ := query.Values(cq)
 
 	url := fmt.Sprintf("%v", endpoint+"/positions.json?"+v.Encode())
 
