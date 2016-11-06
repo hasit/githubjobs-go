@@ -8,9 +8,12 @@ import (
 )
 
 func main() {
-	p, err := githubjobs.GetPositionsByCoordinates("47.6062100", "-122.3320700")
+	positions, err := githubjobs.GetPositionsByCoordinates("47.6062100", "-122.3320700")
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(p)
+	fmt.Println(positions)
+	for _, p := range positions {
+		fmt.Println(p)
+	}
 }

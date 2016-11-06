@@ -8,9 +8,11 @@ import (
 )
 
 func main() {
-	p, err := githubjobs.GetPositions("go", "", false)
+	positions, err := githubjobs.GetPositions("go", "", false)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(p[0])
+	for _, p := range positions {
+		fmt.Println(p)
+	}
 }
