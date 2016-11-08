@@ -63,7 +63,7 @@ func GetPositions(description, location string, fullTime bool) ([]*Position, err
 	}
 	v, _ := query.Values(sq)
 
-	url := fmt.Sprintf("%v", endpoint+"/positions.json?"+v.Encode())
+	url := fmt.Sprintf("%v", endpoint+"/positions.json")
 
 	positions := new([]*Position)
 
@@ -89,7 +89,7 @@ func GetPositionsByCoordinates(latitude, longitude string) ([]*Position, error) 
 	}
 	v, _ := query.Values(cq)
 
-	url := fmt.Sprintf("%v", endpoint+"/positions.json?")
+	url := fmt.Sprintf("%v", endpoint+"/positions.json")
 
 	positions := new([]*Position)
 
